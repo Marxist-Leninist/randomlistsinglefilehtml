@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Randomize User Input List</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        textarea, button {
+            width: 100%;
+            margin-bottom: 10px;
+        }
+        textarea {
+            height: 100px;
+        }
+        button {
+            padding: 10px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            padding: 10px;
+            background-color: #f0f0f0;
+            margin-bottom: 5px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Randomize List</h1>
+    <textarea id="userInput" placeholder="Enter your list items, one per line"></textarea>
+    <button onclick="createAndRandomizeList()">Create and Randomize List</button>
+    <ul id="itemList"></ul>
+
+    <script>
+        function createAndRandomizeList() {
+            const input = document.getElementById('userInput').value;
+            const items = input.split('\n').filter(item => item.trim() !== '');
+            const ul = document.getElementById('itemList');
+            
+            // Clear previous list
+            ul.innerHTML = '';
+            
+            // Shuffle the array
+            for (let i = items.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [items[i], items[j]] = [items[j], items[i]];
+            }
+            
+            // Create list items
+            items.forEach(item => {
+                const li = document.createElement('li');
+                li.textContent = item;
+                ul.appendChild(li);
+            });
+        }
+    </script>
+</body>
+</html>
